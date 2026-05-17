@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <title>Bitcoin Block Lottery Verifier</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #111;
+      color: #fff;
+      padding: 40px;
+      max-width: 900px;
+      margin: auto;
+    }
+    input, button {
+      width: 100%;
+      padding: 12px;
+      margin: 8px 0 18px;
+      font-size: 16px;
+    }
+    button {
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .box {
+      background: #1d1d1d;
+      padding: 20px;
+      border-radius: 12px;
+      margin-top: 20px;
+      word-break: break-all;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Bitcoin Block Lottery Verifier</h1>
+
+  <p>
+    Inserisci l'hash del blocco Bitcoin e il numero totale dei ticket.
+    Il sistema convertirà l'hash esadecimale in un numero e calcolerà il ticket vincente.
+  </p>
+
+  <label>Hash del blocco Bitcoin</label>
+  <input id="hash" placeholder="Esempio: 000000000000000000..." />
+
+  <label>Numero totale ticket</label>
+  <input id="tickets" type="number" placeholder="Esempio: 50000" />
+
+  <button onclick="calculateWinner()">Calcola ticket vincente</button>
+
+  <div class="box" id="result"></div>
+
+  <script>
+    function calculateWinner() {
+      const hash = document.getElementById("hash").value.trim();
+      const ticketsInput = document.getElementById("tickets").value.trim();
+      const result = document.getElementById("result");
+
+      if (!hash || !ticketsInput) {
+        result.innerHTML = "Inserisci hash e numero ticket.";
+        return;
+      }
+
+      if (!/^[0-9a-fA-F]+$/.test(hash)) {
+        result.innerHTML = "Hash non valido. Usa solo caratteri esadecimali: 0-9 e A-F.";
+        return;
+      }
+
+      const T = BigInt(ticketsInput);
+
+      if (T <= 0n) {
+        result.innerHTML = "Il numero dei ticket deve essere maggiore di zero.";
+        return;
+      }
+
+      const H = BigInt("0x" + hash);
+
+      // divisione richiesta dal tuo sistema
+      const C = H / T;
+
+      // ruota circolare da 1 a T
+      const V = ((C - 1n) % T) + 1n;
+
+      result.innerHTML = `
+        <h2>Risultato</h2>
+        <p><strong>Hash convertito in numero H:</strong><br>${H.toString()}</p>
+        <p><strong>Totale ticket T:</strong> ${T.toString()}</p>
+        <p><strong>Conteggio ruota C = H ÷ T:</strong><br>${C.toString()}</p>
+        <p><strong>Ticket vincente:</strong></p>
+        <h1>${V.toString()}</h1>
+      `;
+    }
+  </script>
+
+</body>
+</html>
