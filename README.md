@@ -1,5 +1,5 @@
 # BTC HashRoll
-
+https://happydao.github.io/BTC.RollDraw/
 Public and verifiable winning ticket generator powered by Bitcoin block hashes.
 
 ## How it works
