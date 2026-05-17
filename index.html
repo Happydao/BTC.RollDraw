@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>BTC HashRoll Verifier</title>
+<title>BTC HashRoll</title>
 
 <style>
 
@@ -13,21 +13,14 @@ box-sizing:border-box;
 }
 
 body{
-
 font-family:Arial,sans-serif;
 
 background:
-linear-gradient(
-135deg,
-#090909,
-#121826,
-#17172c
-);
+radial-gradient(circle at top,#122041,#090909);
 
 color:white;
 
 padding:40px;
-
 }
 
 .container{
@@ -37,15 +30,29 @@ margin:auto;
 
 }
 
-h1{
 
-font-size:50px;
+/* HEADER */
+
+.header{
+
+display:flex;
+align-items:center;
+justify-content:space-between;
+
 margin-bottom:15px;
 
-background:linear-gradient(
+}
+
+.title{
+
+font-size:72px;
+font-weight:bold;
+
+background:
+linear-gradient(
 90deg,
 #4da3ff,
-#9d5cff
+#8c52ff
 );
 
 -webkit-background-clip:text;
@@ -53,69 +60,135 @@ background:linear-gradient(
 
 }
 
-.subtitle{
 
-opacity:.8;
-margin-bottom:35px;
-font-size:18px;
+.repoButton{
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:12px 18px;
+
+border-radius:50px;
+
+font-size:14px;
+
+font-weight:bold;
+
+text-decoration:none;
+
+background:
+rgba(255,255,255,.08);
+
+border:
+1px solid rgba(255,255,255,.15);
+
+color:white;
+
+transition:.3s;
+
+backdrop-filter:blur(10px);
 
 }
 
+.repoButton:hover{
+
+background:
+rgba(255,255,255,.15);
+
+transform:translateY(-2px);
+
+}
+
+
+.subtitle{
+
+font-size:22px;
+
+opacity:.8;
+
+margin-bottom:35px;
+
+}
+
+
+/* MAIN BOX */
+
 .box{
 
-background:rgba(255,255,255,.05);
+background:
+rgba(255,255,255,.04);
+
+padding:40px;
+
+border-radius:30px;
+
+border:
+1px solid rgba(255,255,255,.08);
 
 backdrop-filter:blur(15px);
 
-padding:30px;
-
-border-radius:20px;
-
-border:1px solid rgba(255,255,255,.08);
-
 box-shadow:
-0 0 40px rgba(0,0,0,.5);
+0 0 60px rgba(0,0,0,.4);
 
 margin-bottom:30px;
 
 }
 
+
 label{
 
 display:block;
-margin-bottom:10px;
+
 font-size:18px;
 
+margin-bottom:10px;
+
 }
+
 
 input{
 
 width:100%;
-padding:18px;
+
+padding:20px;
+
+margin-bottom:30px;
+
 border:none;
-border-radius:12px;
-font-size:16px;
-margin-bottom:25px;
-background:#1f1f29;
+
+border-radius:15px;
+
+font-size:18px;
+
+background:#1d1d2f;
+
 color:white;
 
 }
 
 input::placeholder{
 
-color:#999;
+color:#888;
 
 }
+
 
 button{
 
 width:100%;
-padding:18px;
+
+padding:22px;
+
 border:none;
-border-radius:12px;
-font-size:18px;
-font-weight:bold;
+
+border-radius:15px;
+
 cursor:pointer;
+
+font-size:22px;
+
+font-weight:bold;
 
 background:
 linear-gradient(
@@ -125,82 +198,25 @@ linear-gradient(
 );
 
 color:white;
+
 transition:.3s;
 
 }
 
 button:hover{
 
-transform:scale(1.02);
+transform:scale(1.01);
 
 }
 
-.repoButton{
 
-display:block;
-
-text-align:center;
-
-text-decoration:none;
-
-margin-bottom:25px;
-
-padding:18px;
-
-border-radius:12px;
-
-font-weight:bold;
-
-background:
-linear-gradient(
-90deg,
-#22c55e,
-#16a34a
-);
-
-color:white;
-
-}
-
-.repoButton:hover{
-
-transform:scale(1.02);
-
-}
+/* RESULT */
 
 #result{
 
-margin-top:30px;
 display:none;
 
-}
-
-.winner{
-
-font-size:50px;
-font-weight:bold;
-
-background:
-linear-gradient(
-90deg,
-#4da3ff,
-#9d5cff
-);
-
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-
-}
-
-.explanation{
-
-line-height:1.9;
-
-}
-
-.explanation h2{
-
-margin-bottom:25px;
+margin-top:30px;
 
 }
 
@@ -212,17 +228,71 @@ padding:15px;
 
 border-radius:10px;
 
-margin:15px 0;
+margin:10px 0;
 
 font-family:monospace;
 
-overflow:auto;
+word-break:break-word;
+
+}
+
+.winner{
+
+font-size:60px;
+
+font-weight:bold;
+
+margin-top:15px;
+
+background:
+linear-gradient(
+90deg,
+#4da3ff,
+#8c52ff
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+}
+
+
+/* EXPLANATION */
+
+.explanation{
+
+line-height:2;
+
+}
+
+.explanation h2{
+
+margin-bottom:20px;
 
 }
 
 a{
 
 color:#5ab0ff;
+
+}
+
+
+@media(max-width:900px){
+
+.header{
+
+flex-direction:column;
+align-items:flex-start;
+gap:20px;
+
+}
+
+.title{
+
+font-size:48px;
+
+}
 
 }
 
@@ -234,31 +304,35 @@ color:#5ab0ff;
 
 <div class="container">
 
-<h1>BTC HashRoll</h1>
 
-<div class="subtitle">
+<div class="header">
 
-Public and verifiable tool for generating a winning ticket based on a Bitcoin block hash
+<div class="title">
+
+HashRoll BTC
 
 </div>
-
-
-<!-- Open source repository button -->
 
 <a
 class="repoButton"
 href="https://github.com/Happydao/BTC.RollDraw"
-target="_blank"
->
+target="_blank">
 
-Open Source Code • View Github Repository
+Open Source ↗
 
 </a>
 
+</div>
+
+
+<div class="subtitle">
+
+Public and verifiable tool for generating a winning ticket based on a Bitcoin block hash.
+
+</div>
+
 
 <div class="box">
-
-<!-- Hash input -->
 
 <label>
 
@@ -268,11 +342,8 @@ Bitcoin Block Hash
 
 <input
 id="hash"
-placeholder="Example: 000000000000000000..."
+placeholder="Example: 000000000000000..."
 >
-
-
-<!-- Ticket input -->
 
 <label>
 
@@ -286,71 +357,46 @@ type="number"
 placeholder="Example: 50000"
 >
 
-
-<button onclick="calculateWinner()">
+<button
+onclick="calculateWinner()">
 
 Calculate Winning Ticket
 
 </button>
 
 
-<!-- Result area -->
-
-<div id="result" class="box">
-
-<h2>Result</h2>
-
-<p>
-
-<strong>Converted Hash (H)</strong>
-
-</p>
-
 <div
-class="code"
-id="hashValue">
-</div>
+id="result">
 
+<h2>
 
-<p>
+Result
 
-<strong>Total Tickets (T)</strong>
+</h2>
 
-</p>
+<p><strong>Converted Hash (H)</strong></p>
+<div class="code" id="hashValue"></div>
 
-<div
-class="code"
-id="ticketValue">
-</div>
+<p><strong>Total Tickets (T)</strong></p>
+<div class="code" id="ticketValue"></div>
 
-
-<p>
-
-<strong>Wheel Steps (C = H ÷ T)</strong>
-
-</p>
-
-<div
-class="code"
-id="countValue">
-</div>
+<p><strong>Wheel Steps (C=H÷T)</strong></p>
+<div class="code" id="countValue"></div>
 
 <br>
 
-<p>
-
-Winning Ticket
-
-</p>
+<p><strong>Winning Ticket</strong></p>
 
 <div
 class="winner"
 id="winnerValue">
-</div>
 
 </div>
 
 </div>
+
+</div>
+
 
 
 <div class="box explanation">
@@ -365,12 +411,11 @@ How HashRoll Works
 
 2. Wait until the block gets mined<br>
 
-3. Get the block hash from:<br><br>
+3. Get block hash from:<br><br>
 
 <a
-href="https://mempool.space"
 target="_blank"
->
+href="https://mempool.space">
 
 https://mempool.space
 
@@ -378,28 +423,7 @@ https://mempool.space
 
 <br><br>
 
-4. Convert the hash into a number
-
-<div class="code">
-
-Character values:
-
-0=0<br>
-1=1<br>
-2=2<br>
-...<br>
-9=9<br>
-A=10<br>
-B=11<br>
-C=12<br>
-D=13<br>
-E=14<br>
-F=15
-
-</div>
-
-
-Formula:
+4. Convert hash into number<br>
 
 <div class="code">
 
@@ -407,27 +431,7 @@ H = Σ(dᵢ × 16ⁱ)
 
 </div>
 
-
-Simple example:
-
-<div class="code">
-
-Hash: 1A3
-
-1=1
-A=10
-3=3
-
-H=(1×16²)+(10×16¹)+(3×16⁰)
-
-H=256+160+3
-
-H=419
-
-</div>
-
-
-5. Divide the converted number by the total amount of tickets
+5. Divide:
 
 <div class="code">
 
@@ -435,17 +439,15 @@ C = H ÷ T
 
 </div>
 
-
-6. Move through the wheel:
+6. Move through wheel:
 
 <div class="code">
 
-1 → 2 → 3 → ... → 50,000 → 1 → 2 ...
+1 → 2 → 3 → ... → 50,000 → 1 → ...
 
 </div>
 
-
-7. The ticket where the wheel stops becomes the winner
+7. Winner formula:
 
 <div class="code">
 
@@ -460,36 +462,17 @@ V=((C−1) mod T)+1
 
 <script>
 
-/*
-=================================================
-BTC HASHROLL CALCULATION ENGINE
-=================================================
-*/
-
 function calculateWinner(){
 
-/*
-Get user inputs
-*/
-
 const hash=
-document
-.getElementById("hash")
-.value
-.trim();
+document.getElementById("hash")
+.value.trim();
 
 const tickets=
-document
-.getElementById("tickets")
-.value
-.trim();
+document.getElementById("tickets")
+.value.trim();
 
-
-/*
-Basic validation
-*/
-
-if(!hash || !tickets){
+if(!hash||!tickets){
 
 alert(
 "Insert hash and ticket amount"
@@ -499,15 +482,7 @@ return;
 
 }
 
-
-/*
-Allow only hexadecimal characters:
-0-9 and A-F
-*/
-
-if(
-!/^[0-9a-fA-F]+$/.test(hash)
-){
+if(!/^[0-9a-fA-F]+$/.test(hash)){
 
 alert(
 "Invalid hash"
@@ -517,68 +492,20 @@ return;
 
 }
 
-
-/*
-Convert ticket amount into BigInt
-BigInt is required because
-Bitcoin hashes become extremely large numbers
-*/
-
 const T=
 BigInt(tickets);
-
-
-/*
-Convert hexadecimal hash into a huge decimal number
-
-Example:
-
-Hash:
-1A3
-
-Becomes:
-
-419
-*/
 
 const H=
 BigInt(
 "0x"+hash
 );
 
-
-/*
-Wheel step calculation
-
-C = H ÷ T
-
-H = converted hash number
-T = total tickets
-C = total wheel steps
-*/
-
 const C=
 H/T;
-
-
-/*
-Winning ticket formula
-
-((C-1) % T)+1
-
-Creates a circular wheel:
-
-1→2→3→...→T→1→2...
-
-*/
 
 const V=
 ((C-1n)%T)+1n;
 
-
-/*
-Display results
-*/
 
 document
 .getElementById("result")
