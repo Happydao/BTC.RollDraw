@@ -1,110 +1,244 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
+<meta charset="UTF-8">
 <title>BTC HashRoll Verifier</title>
 
 <style>
 
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+}
+
 body{
-    font-family:Arial,sans-serif;
-    background:#111;
-    color:white;
-    margin:0;
-    padding:30px;
+
+font-family:Arial,sans-serif;
+
+background:
+linear-gradient(
+135deg,
+#090909,
+#121826,
+#17172c
+);
+
+color:white;
+
+padding:40px;
+
 }
 
 .container{
-    display:flex;
-    gap:30px;
-    align-items:flex-start;
-}
 
-.left{
-    flex:1;
-}
+max-width:1200px;
+margin:auto;
 
-.right{
-    width:420px;
-}
-
-input,button{
-    width:100%;
-    padding:12px;
-    margin:8px 0 18px;
-    font-size:16px;
-    border-radius:8px;
-    border:none;
-}
-
-button{
-    cursor:pointer;
-    font-weight:bold;
-}
-
-button:hover{
-opacity:.9;
-}
-
-.box{
-    background:#1d1d1d;
-    padding:20px;
-    border-radius:12px;
-    margin-top:20px;
-    word-break:break-word;
-}
-
-.explanation{
-    background:#1d1d1d;
-    padding:20px;
-    border-radius:12px;
-    line-height:1.7;
-}
-
-pre{
-white-space:pre-wrap;
-font-size:14px;
 }
 
 h1{
-margin-top:0;
+
+font-size:50px;
+margin-bottom:15px;
+
+background:linear-gradient(
+90deg,
+#4da3ff,
+#9d5cff
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
 }
 
-@media(max-width:1000px){
+.subtitle{
 
-.container{
-flex-direction:column;
+opacity:.8;
+margin-bottom:35px;
+font-size:18px;
+
 }
 
-.right{
+.box{
+
+background:rgba(255,255,255,.05);
+
+backdrop-filter:blur(15px);
+
+padding:30px;
+
+border-radius:20px;
+
+border:1px solid rgba(255,255,255,.08);
+
+box-shadow:
+0 0 40px rgba(0,0,0,.5);
+
+margin-bottom:30px;
+
+}
+
+label{
+
+display:block;
+margin-bottom:10px;
+font-size:18px;
+
+}
+
+input{
+
 width:100%;
+
+padding:18px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:16px;
+
+margin-bottom:25px;
+
+background:#1f1f29;
+color:white;
+
 }
+
+input::placeholder{
+
+color:#999;
+
+}
+
+button{
+
+width:100%;
+
+padding:18px;
+
+border:none;
+
+border-radius:12px;
+
+font-size:18px;
+
+font-weight:bold;
+
+cursor:pointer;
+
+background:
+
+linear-gradient(
+90deg,
+#4da3ff,
+#8c52ff
+);
+
+color:white;
+
+transition:.3s;
+
+}
+
+button:hover{
+
+transform:scale(1.02);
+
+}
+
+#result{
+
+margin-top:30px;
+
+display:none;
+
+}
+
+.winner{
+
+font-size:50px;
+font-weight:bold;
+
+background:linear-gradient(
+90deg,
+#4da3ff,
+#9d5cff
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
+
+}
+
+.explanation h2{
+
+margin-bottom:25px;
+
+}
+
+.explanation{
+
+line-height:1.9;
+
+}
+
+.code{
+
+background:#111;
+
+padding:15px;
+
+border-radius:10px;
+
+margin:15px 0;
+
+font-family:monospace;
+
+overflow:auto;
+
+}
+
+a{
+
+color:#5ab0ff;
 
 }
 
 </style>
+
 </head>
 
 <body>
 
 <div class="container">
 
-<div class="left">
+<h1>BTC HashRoll</h1>
 
-<h1>BTC HashRoll Verifier</h1>
+<div class="subtitle">
 
-<p>
-Insert a Bitcoin block hash and total number of tickets.
-The system converts the hexadecimal hash into a number and calculates the winning ticket.
-</p>
+Public and verifiable Bitcoin block hash checker
 
-<label>Bitcoin Block Hash</label>
+</div>
+
+
+<div class="box">
+
+<label>
+Bitcoin Block Hash
+</label>
+
 <input
 id="hash"
 placeholder="Example: 000000000000000000..."
 >
 
-<label>Total Tickets</label>
+<label>
+Total Tickets
+</label>
+
 <input
 id="tickets"
 type="number"
@@ -112,87 +246,160 @@ placeholder="Example: 50000"
 >
 
 <button onclick="calculateWinner()">
+
 Calculate Winning Ticket
+
 </button>
 
-<div class="box" id="result"></div>
+
+<div id="result" class="box">
+
+<h2>Result</h2>
+
+<p>
+
+<strong>Converted Hash (H)</strong>
+
+</p>
+
+<div
+class="code"
+id="hashValue">
+</div>
+
+
+<p>
+
+<strong>Total Tickets (T)</strong>
+
+</p>
+
+<div
+class="code"
+id="ticketValue">
+</div>
+
+
+<p>
+
+<strong>Wheel Steps (C = H ÷ T)</strong>
+
+</p>
+
+<div
+class="code"
+id="countValue">
+</div>
+
+<br>
+
+<p>
+
+Winning Ticket
+
+</p>
+
+<div
+class="winner"
+id="winnerValue">
+</div>
+
+</div>
 
 </div>
 
 
-<div class="right">
+<div class="box explanation">
 
-<div class="explanation">
+<h2>
+How HashRoll Works
+</h2>
 
-<h2>How it works</h2>
+1. Choose a future Bitcoin block<br>
 
-<pre>
+2. Wait until the block gets mined<br>
 
-1. Bitcoin block hash
-↓
-2*. Convert the hash into a number
-↓
-3. Divide that number by the total amount of tickets
-↓
-4. The result determines how many steps the wheel moves
-↓
-5. The wheel counts:
+3. Get the block hash from:<br><br>
 
-1 → 2 → 3 → ... → 50,000 → 1 → 2 → ...
+<a
+href="https://mempool.space"
+target="_blank"
+>
 
-↓
-6. The ticket where the wheel stops becomes the winning ticket
+https://mempool.space
 
+</a>
 
-*Convert hash into a number:
+<br><br>
 
-A Bitcoin block hash is a sequence of numbers
-and letters in hexadecimal format (base 16).
+4. Convert the hash into a number
+
+<div class="code">
 
 Character values:
 
-0 = 0
-1 = 1
-2 = 2
-...
-9 = 9
-A = 10
-B = 11
-C = 12
-D = 13
-E = 14
-F = 15
+0=0<br>
+1=1<br>
+2=2<br>
+...<br>
+9=9<br>
+A=10<br>
+B=11<br>
+C=12<br>
+D=13<br>
+E=14<br>
+F=15
 
+</div>
 
 Formula:
 
-H = Σ (dᵢ × 16ⁱ)
+<div class="code">
 
+H = Σ(dᵢ × 16ⁱ)
+
+</div>
 
 Simple example:
 
+<div class="code">
+
 Hash: 1A3
 
-Values:
+1=1
+A=10
+3=3
 
-1 = 1
-A = 10
-3 = 3
+H=(1×16²)+(10×16¹)+(3×16⁰)
+
+H=256+160+3
+
+H=419
+
+</div>
 
 
-Calculation:
+5. Divide the converted number by the total amount of tickets
 
-H = (1×16²)
-  + (10×16¹)
-  + (3×16⁰)
+<div class="code">
 
-H = 256
-  + 160
-  + 3
+C = H ÷ T
 
-H = 419
+</div>
 
-</pre>
+6. Move through the wheel:
+
+<div class="code">
+
+1 → 2 → 3 → ... → 50,000 → 1 → 2 ...
+
+</div>
+
+7. The ticket where the wheel stops becomes the winner
+
+<div class="code">
+
+V=((C−1) mod T)+1
 
 </div>
 
@@ -205,84 +412,85 @@ H = 419
 
 function calculateWinner(){
 
-const hash=document
+const hash=
+document
 .getElementById("hash")
 .value
 .trim();
 
-const ticketsInput=document
+const tickets=
+document
 .getElementById("tickets")
 .value
 .trim();
 
-const result=document
-.getElementById("result");
+if(
+!hash ||
+!tickets
+){
 
-
-if(!hash || !ticketsInput){
-
-result.innerHTML=
-"Insert hash and ticket amount";
-
-return;
-
-}
-
-
-if(!/^[0-9a-fA-F]+$/.test(hash)){
-
-result.innerHTML=
-"Invalid hash. Use only hexadecimal characters (0-9 and A-F).";
-
-return;
-
-}
-
-const T=BigInt(ticketsInput);
-
-if(T<=0n){
-
-result.innerHTML=
-"Ticket amount must be greater than zero.";
+alert(
+"Insert hash and ticket amount"
+);
 
 return;
 
 }
 
 
-const H=BigInt("0x"+hash);
+if(
+!/^[0-9a-fA-F]+$/.test(hash)
+){
 
-const C=H/T;
+alert(
+"Invalid hash"
+);
 
-const V=((C-1n)%T)+1n;
+return;
+
+}
 
 
-result.innerHTML=`
+const T=
+BigInt(tickets);
 
-<h2>Result</h2>
+const H=
+BigInt(
+"0x"+hash
+);
 
-<p>
-<strong>Converted Hash (H)</strong><br>
-${H.toString()}
-</p>
+const C=
+H/T;
 
-<p>
-<strong>Total Tickets (T)</strong><br>
-${T.toString()}
-</p>
+const V=
+((C-1n)%T)+1n;
 
-<p>
-<strong>Wheel Steps (C = H ÷ T)</strong><br>
-${C.toString()}
-</p>
 
-<p>
-<strong>Winning Ticket</strong>
-</p>
+document
+.getElementById("result")
+.style.display=
+"block";
 
-<h1>${V.toString()}</h1>
 
-`;
+document
+.getElementById("hashValue")
+.innerHTML=
+H.toString();
+
+document
+.getElementById("ticketValue")
+.innerHTML=
+T.toString();
+
+document
+.getElementById("countValue")
+.innerHTML=
+C.toString();
+
+document
+.getElementById("winnerValue")
+.innerHTML=
+V.toString();
 
 }
 
