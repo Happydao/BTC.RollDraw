@@ -91,17 +91,11 @@ font-size:18px;
 input{
 
 width:100%;
-
 padding:18px;
-
 border:none;
-
 border-radius:12px;
-
 font-size:16px;
-
 margin-bottom:25px;
-
 background:#1f1f29;
 color:white;
 
@@ -116,21 +110,14 @@ color:#999;
 button{
 
 width:100%;
-
 padding:18px;
-
 border:none;
-
 border-radius:12px;
-
 font-size:18px;
-
 font-weight:bold;
-
 cursor:pointer;
 
 background:
-
 linear-gradient(
 90deg,
 #4da3ff,
@@ -138,7 +125,6 @@ linear-gradient(
 );
 
 color:white;
-
 transition:.3s;
 
 }
@@ -149,10 +135,42 @@ transform:scale(1.02);
 
 }
 
+.repoButton{
+
+display:block;
+
+text-align:center;
+
+text-decoration:none;
+
+margin-bottom:25px;
+
+padding:18px;
+
+border-radius:12px;
+
+font-weight:bold;
+
+background:
+linear-gradient(
+90deg,
+#22c55e,
+#16a34a
+);
+
+color:white;
+
+}
+
+.repoButton:hover{
+
+transform:scale(1.02);
+
+}
+
 #result{
 
 margin-top:30px;
-
 display:none;
 
 }
@@ -162,7 +180,8 @@ display:none;
 font-size:50px;
 font-weight:bold;
 
-background:linear-gradient(
+background:
+linear-gradient(
 90deg,
 #4da3ff,
 #9d5cff
@@ -173,15 +192,15 @@ background:linear-gradient(
 
 }
 
-.explanation h2{
-
-margin-bottom:25px;
-
-}
-
 .explanation{
 
 line-height:1.9;
+
+}
+
+.explanation h2{
+
+margin-bottom:25px;
 
 }
 
@@ -224,10 +243,27 @@ Public and verifiable tool for generating a winning ticket based on a Bitcoin bl
 </div>
 
 
+<!-- Open source repository button -->
+
+<a
+class="repoButton"
+href="https://github.com/Happydao/BTC.RollDraw"
+target="_blank"
+>
+
+Open Source Code • View Github Repository
+
+</a>
+
+
 <div class="box">
 
+<!-- Hash input -->
+
 <label>
+
 Bitcoin Block Hash
+
 </label>
 
 <input
@@ -235,8 +271,13 @@ id="hash"
 placeholder="Example: 000000000000000000..."
 >
 
+
+<!-- Ticket input -->
+
 <label>
+
 Total Tickets
+
 </label>
 
 <input
@@ -245,12 +286,15 @@ type="number"
 placeholder="Example: 50000"
 >
 
+
 <button onclick="calculateWinner()">
 
 Calculate Winning Ticket
 
 </button>
 
+
+<!-- Result area -->
 
 <div id="result" class="box">
 
@@ -312,7 +356,9 @@ id="winnerValue">
 <div class="box explanation">
 
 <h2>
+
 How HashRoll Works
+
 </h2>
 
 1. Choose a future Bitcoin block<br>
@@ -352,6 +398,7 @@ F=15
 
 </div>
 
+
 Formula:
 
 <div class="code">
@@ -359,6 +406,7 @@ Formula:
 H = Σ(dᵢ × 16ⁱ)
 
 </div>
+
 
 Simple example:
 
@@ -387,6 +435,7 @@ C = H ÷ T
 
 </div>
 
+
 6. Move through the wheel:
 
 <div class="code">
@@ -394,6 +443,7 @@ C = H ÷ T
 1 → 2 → 3 → ... → 50,000 → 1 → 2 ...
 
 </div>
+
 
 7. The ticket where the wheel stops becomes the winner
 
@@ -410,7 +460,17 @@ V=((C−1) mod T)+1
 
 <script>
 
+/*
+=================================================
+BTC HASHROLL CALCULATION ENGINE
+=================================================
+*/
+
 function calculateWinner(){
+
+/*
+Get user inputs
+*/
 
 const hash=
 document
@@ -424,10 +484,12 @@ document
 .value
 .trim();
 
-if(
-!hash ||
-!tickets
-){
+
+/*
+Basic validation
+*/
+
+if(!hash || !tickets){
 
 alert(
 "Insert hash and ticket amount"
@@ -437,6 +499,11 @@ return;
 
 }
 
+
+/*
+Allow only hexadecimal characters:
+0-9 and A-F
+*/
 
 if(
 !/^[0-9a-fA-F]+$/.test(hash)
@@ -451,20 +518,67 @@ return;
 }
 
 
+/*
+Convert ticket amount into BigInt
+BigInt is required because
+Bitcoin hashes become extremely large numbers
+*/
+
 const T=
 BigInt(tickets);
+
+
+/*
+Convert hexadecimal hash into a huge decimal number
+
+Example:
+
+Hash:
+1A3
+
+Becomes:
+
+419
+*/
 
 const H=
 BigInt(
 "0x"+hash
 );
 
+
+/*
+Wheel step calculation
+
+C = H ÷ T
+
+H = converted hash number
+T = total tickets
+C = total wheel steps
+*/
+
 const C=
 H/T;
+
+
+/*
+Winning ticket formula
+
+((C-1) % T)+1
+
+Creates a circular wheel:
+
+1→2→3→...→T→1→2...
+
+*/
 
 const V=
 ((C-1n)%T)+1n;
 
+
+/*
+Display results
+*/
 
 document
 .getElementById("result")
