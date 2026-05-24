@@ -35,27 +35,21 @@ padding:40px;
 }
 
 .container{
-
 max-width:1200px;
 margin:auto;
-
 }
 
 
 /* HEADER */
 
 .header{
-
 display:flex;
 align-items:center;
 justify-content:space-between;
-
 margin-bottom:15px;
-
 }
 
 .title{
-
 font-size:72px;
 font-weight:bold;
 
@@ -68,9 +62,13 @@ linear-gradient(
 
 -webkit-background-clip:text;
 -webkit-text-fill-color:transparent;
-
 }
 
+.headerButtons{
+display:flex;
+gap:15px;
+flex-wrap:wrap;
+}
 
 .repoButton{
 
@@ -111,7 +109,6 @@ transform:translateY(-2px);
 
 }
 
-
 .subtitle{
 
 font-size:22px;
@@ -146,7 +143,6 @@ margin-bottom:30px;
 
 }
 
-
 label{
 
 display:block;
@@ -156,7 +152,6 @@ font-size:18px;
 margin-bottom:10px;
 
 }
-
 
 input{
 
@@ -183,7 +178,6 @@ input::placeholder{
 color:#888;
 
 }
-
 
 button{
 
@@ -305,6 +299,10 @@ font-size:48px;
 
 }
 
+.headerButtons{
+width:100%;
+}
+
 }
 
 </style>
@@ -315,14 +313,22 @@ font-size:48px;
 
 <div class="container">
 
-
 <div class="header">
 
 <div class="title">
-
 HashRoll BTC
-
 </div>
+
+<div class="headerButtons">
+
+<a
+class="repoButton"
+href="https://github.com/Happydao/BTC.RollDraw/blob/main/README.md"
+target="_blank">
+
+Calculation Example ↗
+
+</a>
 
 <a
 class="repoButton"
@@ -332,6 +338,8 @@ target="_blank">
 Open Source ↗
 
 </a>
+
+</div>
 
 </div>
 
@@ -346,9 +354,7 @@ Public and verifiable tool for generating a winning ticket based on a Bitcoin bl
 <div class="box">
 
 <label>
-
 Bitcoin Block Hash
-
 </label>
 
 <input
@@ -357,9 +363,7 @@ placeholder="Example: 000000000000000..."
 >
 
 <label>
-
 Total Tickets
-
 </label>
 
 <input
@@ -376,13 +380,10 @@ Calculate Winning Ticket
 </button>
 
 
-<div
-id="result">
+<div id="result">
 
 <h2>
-
 Result
-
 </h2>
 
 <p><strong>Converted Hash (H)</strong></p>
@@ -401,7 +402,6 @@ Result
 <div
 class="winner"
 id="winnerValue">
-
 </div>
 
 </div>
@@ -413,9 +413,7 @@ id="winnerValue">
 <div class="box explanation">
 
 <h2>
-
 How HashRoll Works
-
 </h2>
 
 1. Choose a future Bitcoin block<br>
@@ -472,9 +470,7 @@ V=((C−1) mod T)+1
 <div class="box explanation">
 
 <h2>
-
 Intellectual Property Notice
-
 </h2>
 
 <div class="code">
