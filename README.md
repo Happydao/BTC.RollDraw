@@ -160,3 +160,27 @@ Ticket number 5
 Anyone can repeat the same calculation using the public Bitcoin block hash and obtain exactly the same result.
 
 This makes the process public, transparent, and independently verifiable by anyone.
+
+--------------------------------------------------
+
+INTELLECTUAL PROPERTY NOTICE
+
+© 2026 Torrino DAO
+
+BTC HashRoll is publicly visible for transparency and
+
+verification purposes.
+
+The source code, algorithms, documentation, design,
+
+and related materials are protected by copyright.
+
+Public visibility does not grant permission to copy,
+
+modify, redistribute, commercialize, or create
+
+derivative works without prior written permission.
+
+All rights reserved.
+
+--------------------------------------------------
